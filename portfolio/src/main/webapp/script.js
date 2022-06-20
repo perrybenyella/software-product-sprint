@@ -31,9 +31,11 @@ const greetings = ['I make portraits!', 'All is well']
 /** Fetches the current date from the server and adds it to the page. */
 async function showHello() {
     const responseFromServer = await fetch('/hello');
-    const textFromResponse = await responseFromServer.text();
+    const messages = await responseFromServer.json();
+    // pick a random mssg
+    const message = messages[Math.floor(Math.random() * messages.length)];
   
-    const dateContainer = document.getElementById('greeting');
-    dateContainer.innerText = textFromResponse;
+    const messageContainer = document.getElementById('greeting');
+    messageContainer.innerText = message;
   }
   
