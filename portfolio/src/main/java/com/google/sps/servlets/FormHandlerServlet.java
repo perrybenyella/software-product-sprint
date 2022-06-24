@@ -1,6 +1,9 @@
 package com.google.sps.servlets;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,16 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/form-handler")
 public class FormHandlerServlet extends HttpServlet {
 
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-    // Get the value entered in the form.
-    String textValue = request.getParameter("text-input");
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    // Print the value so you can see it in the server logs.
-    System.out.println("You submitted: " + textValue);
+        // Get the value entered in the form.
+        String textValue = request.getParameter("text-input");
 
-    // Write the value to the response so the user can see it.
-    response.getWriter().println("You submitted: " + textValue);
-  }
+        // Print the value so you can see it in the server logs.
+        System.out.println("You submitted: " + textValue);
+
+        // Write the value to the response so the user can see it.
+        response.getWriter().println("You submitted: " + textValue);
+
+        // Using logger
+        LOGGER.log(Level.INFO, "My first Log Message");
+    }
 }
