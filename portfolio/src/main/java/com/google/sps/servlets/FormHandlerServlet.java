@@ -9,6 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.cloud.datastore.Datastore;
+import com.google.cloud.datastore.DatastoreOptions;
+import com.google.cloud.datastore.Entity;
+import com.google.cloud.datastore.FullEntity;
+import com.google.cloud.datastore.KeyFactory;
+
 @WebServlet("/form-handler")
 public class FormHandlerServlet extends HttpServlet {
 
@@ -20,6 +26,18 @@ public class FormHandlerServlet extends HttpServlet {
         // Get the value entered in the form.
         String textValue = request.getParameter("text-input");
 
+        // Sanitize user input to remove HTML tags and JavaScript.
+        long timestamp = System.currentTimeMillis();
+
+        Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
+        KeyFactory keyFactory = datastore.newKeyFactory().setKind("Comment");
+        FullEntity commentEntity =
+            Entity.newBuilder(keyFactory.newKey())
+                .set("comment", textValue)
+                .set("timestamp", timestamp)
+                .build();
+        datastore.put(commentEntity);
+
         // Print the value so you can see it in the server logs.
         System.out.println("You submitted: " + textValue);
 
@@ -28,5 +46,7 @@ public class FormHandlerServlet extends HttpServlet {
 
         // Using logger
         LOGGER.log(Level.INFO, "My first Log Message");
+
+        response.sendRedirect("/index.html");
     }
 }
