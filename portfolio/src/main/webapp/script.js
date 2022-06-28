@@ -38,4 +38,48 @@ async function showHello() {
     const messageContainer = document.getElementById('greeting');
     messageContainer.innerText = message;
   }
+
+/** Fetches tasks from the server and adds them to the DOM. */
+function loadComments() {
+    fetch('/form-loader').then(response => response.json()).then((comments) => {
+      const commentListElement = document.getElementById('comment-list');
+      comments.forEach((comment) => {
+        commentListElement.appendChild(createCommentElement(comment));
+      })
+    });
+  }
+
+/** Creates an element that represents a task, including its delete button. */
+function createCommentElement(task) {
+    const messageElement = document.createElement('li');
+    messageElement.className = 'comment';
+  
+    const commentElement = document.createElement('span');
+    commentElement.innerText = task.comment;
+
+    const timeElement = document.createElement('span');
+    timeElement.innerText = task.timestamp;
+
+    const deleteButtonElement = document.createElement('button');
+    deleteButtonElement.innerText = 'Delete';
+    deleteButtonElement.addEventListener('click', () => {
+        deleteComment(task);
+
+    // Remove the task from the DOM.
+    messageElement.remove();
+  });
+
+    messageElement.appendChild(commentElement);
+    messageElement.appendChild(timeElement);
+    messageElement.appendChild(deleteButtonElement);
+
+    return messageElement;
+  }
+
+  /** Tells the server to delete the task. */
+function deleteComment(task) {
+    const params = new URLSearchParams();
+    params.append('id', task.id);
+    fetch('/delete-comment', {method: 'POST', body: params});
+  }
   

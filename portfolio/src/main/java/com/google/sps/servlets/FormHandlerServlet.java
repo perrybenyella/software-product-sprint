@@ -14,6 +14,9 @@ import com.google.cloud.datastore.DatastoreOptions;
 import com.google.cloud.datastore.Entity;
 import com.google.cloud.datastore.FullEntity;
 import com.google.cloud.datastore.KeyFactory;
+import org.jsoup.Jsoup;
+//import org.jsoup.safety.Whitelist;
+//import org.jsoup.safety.Whitelist;
 
 @WebServlet("/form-handler")
 public class FormHandlerServlet extends HttpServlet {
@@ -25,6 +28,7 @@ public class FormHandlerServlet extends HttpServlet {
 
         // Get the value entered in the form.
         String textValue = request.getParameter("text-input");
+        //String textValue = Jsoup.clean(request.getParameter("text-input"), Whitelist.none());
 
         // Sanitize user input to remove HTML tags and JavaScript.
         long timestamp = System.currentTimeMillis();
