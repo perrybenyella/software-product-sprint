@@ -6,13 +6,16 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload="loadComments()">
     <div id="content">
       <h1>Perry's Portfolio</h1>
       <p>This is my portfolio.</p>
       <p>Hello, I am Perry and I study CS at Northwestern University</p>
       <img class="photo" src="/images/photo.JPG"/>
-      <p>Click <a href="/hello">here</a> to see content created by server code.</p>
+      <p>Click here to see content created by server code.</p>
+      <button  onclick="showHello()">fetch content</button>
+      <p id="greeting"></p>      
+      <p>Click <a href="/hello" target="_blank"> here </a>to see the server response directly.</p>
       <p>Click here to get a random message:</p>
       <button onclick="addRandomGreeting()">Hello</button>
       <div id="greeting-container"></div>
@@ -32,5 +35,31 @@
       <p><a href="https://linkedin.com/in/perrybenyella" target="_blank">My LinkedIn</a></p>
       <p><a href="https://github.com/perrybenyella" target="_blank">My Github</a></p>
     </div>
+    <strong>Data Storage</strong>
+    <!--for posting comments-->
+    <form action="/form-handler" method="POST">
+        <p>Enter some text here:</p>
+        <textarea name="text-input">hello world</textarea>
+        <br/>
+        <input type="submit" />
+    </form>
+    <!--for loading comments-->
+    <!--<ul id="comment-list"></ul>-->
+
+    <strong>Cloud Storage</strong>
+    <!--for uploading image-->
+    <p>Type a message and click submit:</p>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <p>Type some text:</p>
+      <textarea name="message"></textarea>
+      <br/>
+      <p>Upload an image:</p>
+      <input type="file" name="image">
+      <br/><br/>
+      <button>Submit</button>
+    </form>
+    <!--for seeing images-->
+    <p><a href="/list-images">Click here to see all of the uploaded images!</a></p>
   </body>
 </html>
