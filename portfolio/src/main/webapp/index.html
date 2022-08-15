@@ -35,12 +35,31 @@
       <p><a href="https://linkedin.com/in/perrybenyella" target="_blank">My LinkedIn</a></p>
       <p><a href="https://github.com/perrybenyella" target="_blank">My Github</a></p>
     </div>
+    <strong>Data Storage</strong>
+    <!--for posting comments-->
     <form action="/form-handler" method="POST">
         <p>Enter some text here:</p>
         <textarea name="text-input">hello world</textarea>
         <br/>
         <input type="submit" />
     </form>
-    <ul id="comment-list"></ul>
+    <!--for loading comments-->
+    <!--<ul id="comment-list"></ul>-->
+
+    <strong>Cloud Storage</strong>
+    <!--for uploading image-->
+    <p>Type a message and click submit:</p>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <p>Type some text:</p>
+      <textarea name="message"></textarea>
+      <br/>
+      <p>Upload an image:</p>
+      <input type="file" name="image">
+      <br/><br/>
+      <button>Submit</button>
+    </form>
+    <!--for seeing images-->
+    <p><a href="/list-images">Click here to see all of the uploaded images!</a></p>
   </body>
 </html>
